@@ -1,0 +1,50 @@
+"use client";
+
+import { useState } from "react";
+import { pricingData } from "../data/pricingData";
+import Plans from "./Plans";
+
+export default function PricingSection() {
+  const [billingCycle, setBillingCycle] = useState<"annually" | "monthly">("annually");
+
+  return (
+    <section className="text-center py-20">
+      <h2 className="text-4xl font-bold mb-4">Flexible plans for growth</h2>
+      <p className="text-gray-400 max-w-xl mx-auto mb-10">
+      Transparent pricing designed to fit your requirements.
+
+
+      </p>
+
+
+      <div className="flex justify-center mb-12 space-x-2 bg-[#111] border border-gray-800 rounded-lg w-fit mx-auto">
+        <button
+          onClick={() => setBillingCycle("annually")}
+          className={`px-6 py-2 rounded-md font-medium transition ${
+            billingCycle === "annually"
+              ? "bg-indigo-600 text-white"
+              : "text-gray-400 hover:text-white"
+          }`}
+        >
+          Annually
+        </button>
+        <button
+          onClick={() => setBillingCycle("monthly")}
+          className={`px-6 py-2 rounded-md font-medium transition ${
+            billingCycle === "monthly"
+              ? "bg-indigo-600 text-white"
+              : "text-gray-400 hover:text-white"
+          }`}
+        >
+          Monthly
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
+        {pricingData[billingCycle].map((plan, i) => (
+          <Plans key={i} {...plan} />
+        ))}
+      </div>
+    </section>
+  );
+}
